@@ -5,9 +5,10 @@ import 'package:movies/movie_list/view/movie_list_page.dart';
 import 'package:movies/observer.dart';
 import 'package:movies/style/theme.dart';
 
+
 void main() {
   Bloc.observer = MovieObserver();
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
@@ -16,7 +17,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MovieListPage(),
+      home: const MovieListPage(),
       debugShowCheckedModeBanner: false,
       theme: darkTheme,
     );

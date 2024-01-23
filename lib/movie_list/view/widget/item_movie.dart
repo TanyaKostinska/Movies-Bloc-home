@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/const.dart';
 import 'package:movies/model/movie_model.dart';
+import 'package:movies/movie_detail/view/movie_detail_page.dart';
 import 'package:movies/movie_list/view/widget/reiteng_widget.dart';
 import 'package:movies/style/app_colors.dart';
 
@@ -29,15 +30,15 @@ class MovieItem extends StatelessWidget {
                 ]).createShader(rect);
           },
           child: GestureDetector(
-            // onTap: () =>
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (BuildContext context) => MovieDetailPage(
-            //           movieId: movie.id,
-            //         ),
-            //       ),
-            //     ),
+            onTap: () =>
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => MovieDetailPage(
+                      movieId: movie.id,
+                    ),
+                  ),
+                ),
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(16),

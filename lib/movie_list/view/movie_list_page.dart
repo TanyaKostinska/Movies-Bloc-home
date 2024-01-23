@@ -11,7 +11,7 @@ class MovieListPage extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (_) => MovieListBloc()..add(MovieFetched()),
-        child: MovieList(),
+        child: const MovieList(),
       ),
     );
   }
