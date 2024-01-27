@@ -1,3 +1,5 @@
+import 'genre_model.dart';
+
 class MovieModel {
   final int id;
   final String title;
@@ -5,6 +7,8 @@ class MovieModel {
   final String posterPath;
   final String releaseDate;
   final double voteAverage;
+  final List<GenreModel> genreList;
+  final int? runtime;
 
   MovieModel({
     required this.id,
@@ -13,6 +17,8 @@ class MovieModel {
     required this.posterPath,
     required this.releaseDate,
     required this.voteAverage,
+    required this.genreList,
+    required this.runtime,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
@@ -22,5 +28,11 @@ class MovieModel {
         posterPath: json['poster_path'],
         releaseDate: json['release_date'],
         voteAverage: json['vote_average'].toDouble(),
+        genreList: (json['genres'] as List<dynamic>?)
+                ?.map((element) =>
+                    GenreModel.fromJson(element as Map<String, dynamic>))
+                .toList() ??
+            [],
+        runtime: json['runtime'],
       );
 }

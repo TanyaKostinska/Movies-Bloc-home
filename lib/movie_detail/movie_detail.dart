@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/movie_detail/bloc/movie_detail_bloc.dart';
-import 'package:movies/movie_detail/trailer_model.dart';
+import 'package:movies/model/trailer_model.dart';
 
 class MovieDetail extends StatelessWidget {
   const MovieDetail({super.key});
