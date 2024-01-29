@@ -1,17 +1,28 @@
 import 'dart:convert';
 
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/model/movie_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:stream_transform/stream_transform.dart';
 
 part 'movie_list_event.dart';
 
 part 'movie_list_state.dart';
 
+const throttleDuration = Duration(microseconds: 100);
+
+EventTransformer<E> throttleDroppable<E>(Duration duration) {
+  return (events, mapper) {
+    return droppable<E>().call(events.throttle(duration), mapper);
+  };
+}
+
 class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
   MovieListBloc() : super(const MovieListState()) {
-    on<MovieFetched>(_onMovieFetched);
+    on<MovieFetched>(_onMovieFetched,
+        transformer: throttleDroppable(throttleDuration));
   }
 
   Future<void> _onMovieFetched(

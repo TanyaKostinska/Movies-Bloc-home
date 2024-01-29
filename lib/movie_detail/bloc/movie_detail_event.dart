@@ -5,8 +5,11 @@ sealed class MovieDetailEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetMovieById extends MovieDetailEvent {
+final class GetMovieById extends MovieDetailEvent {
   final int movieId;
 
   GetMovieById(this.movieId);
+
+  @override
+  List<Object> get props => [movieId];
 }

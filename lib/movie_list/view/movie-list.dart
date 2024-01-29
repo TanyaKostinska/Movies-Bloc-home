@@ -12,20 +12,17 @@ class MovieList extends StatefulWidget {
 
 class _MovieListState extends State<MovieList> {
   final _scrollController = ScrollController();
-  /// Оголошення змінної яка є екземпляром класу ScrollController - використовується
-  /// для керування скролінгу
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-    /// Додаєм слухача до _scrollController і _onScroll буде
-    /// викликатися кожного разу, коли користувач прокручує сторінку.
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MovieListBloc, MovieListState>(builder: (context, state) {
+    return BlocBuilder<MovieListBloc, MovieListState>(
+        builder: (context, state) {
       if (state.status == MovieStatus.failure) {
         return const Center(child: Text('Sorry! Error'));
       }
@@ -36,6 +33,8 @@ class _MovieListState extends State<MovieList> {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: GridView.builder(
+            controller:  _scrollController,
+              itemCount: state.hasReachedMax ? state.movies.length :  state.movies.length + 1,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
@@ -57,44 +56,24 @@ class _MovieListState extends State<MovieList> {
 
   @override
   void dispose() {
-    /// dispose() використовується для очищення ресурсів коли
-    /// закриваєм цю сторінку чи закриваєм цей додаток
-
     _scrollController
       ..removeListener(_onScroll)
       ..dispose();
-    /// Видаляє обробник події _onScroll з контролера прокрутки.
-    /// Каскадний оператор .. - використовується для декількох операцій
-    /// з одним обʼєктом
+
     super.dispose();
   }
 
   void _onScroll() {
     if (_isBottom) context.read<MovieListBloc>().add(MovieFetched());
-    /// Перевіряє, чи користувач доскролив до кінця списку.
-    /// Якщо користувач дійшов до кінця списку, в Bloc додається подія
-    /// MovieFetched, що сигналізує про необхідність завантаження наступної
-    /// порції фільмів.
   }
 
   bool get _isBottom {
-    /// Це гетер (властивість), який перевіряє, чи користувач прокрутив
-    /// список майже до кінця.
-
     if (!_scrollController.hasClients) return false;
-    /// Перевіряє, чи контролер прокрутки має "клієнтів" (тобто чи він
-    /// приєднаний до якогось скролюємого віджету). Якщо ні, то
-    /// повертається false.
 
     final maxScroll = _scrollController.position.maxScrollExtent;
-    /// Визначає максимально можливу відстань для прокрутки.
 
     final currentScroll = _scrollController.offset;
-    /// Визначає поточну позицію прокрутки.
 
     return currentScroll >= (maxScroll * 0.9);
-    /// - Перевіряє, чи поточна позиція прокрутки складає не менше,
-    /// ніж 90% від максимально можливої відстані. Якщо так, повертається
-    /// `true`, що означає, що користувач дійшов майже до кінця списку.
   }
 }

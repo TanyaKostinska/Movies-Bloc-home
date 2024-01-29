@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movies/const.dart';
 import 'package:movies/model/movie_model.dart';
+
 import 'package:movies/movie_detail/view/movie_detail_page.dart';
-import 'package:movies/movie_list/view/widget/reiteng_widget.dart';
+import 'package:movies/movie_list/view/widget/rating_circle_widget.dart';
 import 'package:movies/style/app_colors.dart';
 
 class MovieItem extends StatelessWidget {
@@ -22,7 +23,7 @@ class MovieItem extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 stops: [
                   0,
-                  1
+                  1,
                 ],
                 colors: [
                   Colors.transparent,
@@ -34,7 +35,7 @@ class MovieItem extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => MovieDetailPage(
+                    builder: (BuildContext context) => MovieDetail(
                       movieId: movie.id,
                     ),
                   ),

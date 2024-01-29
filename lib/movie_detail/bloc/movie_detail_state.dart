@@ -4,23 +4,27 @@ enum StatusLoading { initial, loading, success, error }
 
 class MovieDetailState extends Equatable {
   final MovieModel? movieDetail;
-  final List<TrailerModel> trailers;
+  final List<TrailerModel>? trailers;
+  final List<ActorModel>? actors;
   final StatusLoading statusLoading;
 
   const MovieDetailState({
-    required this.movieDetail,
-    required this.trailers,
-    required this.statusLoading,
+    this.movieDetail,
+    this.trailers,
+    this.actors,
+    this.statusLoading = StatusLoading.initial,
   });
 
   MovieDetailState copyWith({
     MovieModel? movieDetail,
     List<TrailerModel>? trailers,
+    List<ActorModel>? actors,
     StatusLoading? statusLoading,
   }) {
     return MovieDetailState(
       movieDetail: movieDetail ?? this.movieDetail,
       trailers: trailers ?? this.trailers,
+      actors: actors ?? this.actors,
       statusLoading: statusLoading ?? this.statusLoading,
     );
   }
@@ -30,6 +34,6 @@ class MovieDetailState extends Equatable {
 
   @override
   String toString() {
-    return 'MovieDetailState $movieDetail, trailers:${trailers.length},statusLoading:$statusLoading';
+    return '';
   }
 }

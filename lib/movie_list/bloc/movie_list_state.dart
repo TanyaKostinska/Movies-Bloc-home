@@ -27,4 +27,10 @@ final class MovieListState extends Equatable {
 
   @override
   List<Object?> get props => [status, movies, hasReachedMax];
+
+
+  @override
+  String toString() {
+    return 'MovieState{movieLength: ${movies.length},status: $status,hasReachedMax: $hasReachedMax,}';
+  }
 }

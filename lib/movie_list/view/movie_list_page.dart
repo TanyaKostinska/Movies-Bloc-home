@@ -9,6 +9,9 @@ class MovieListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title:const Center(child:Text('Фільми')),
+      ),
       body: BlocProvider(
         create: (_) => MovieListBloc()..add(MovieFetched()),
         child: const MovieList(),

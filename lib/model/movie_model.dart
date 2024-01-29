@@ -1,3 +1,5 @@
+import 'package:movies/model/actor_model.dart';
+
 import 'genre_model.dart';
 
 class MovieModel {
@@ -8,6 +10,7 @@ class MovieModel {
   final String releaseDate;
   final double voteAverage;
   final List<GenreModel> genreList;
+  final List<ActorModel> actorList;
   final int? runtime;
 
   MovieModel({
@@ -18,6 +21,7 @@ class MovieModel {
     required this.releaseDate,
     required this.voteAverage,
     required this.genreList,
+    required this.actorList,
     required this.runtime,
   });
 
@@ -31,6 +35,11 @@ class MovieModel {
         genreList: (json['genres'] as List<dynamic>?)
                 ?.map((element) =>
                     GenreModel.fromJson(element as Map<String, dynamic>))
+                .toList() ??
+            [],
+        actorList: (json['actor'] as List<dynamic>?)
+                ?.map((element) =>
+                    ActorModel.fromJson(element as Map<String, dynamic>))
                 .toList() ??
             [],
         runtime: json['runtime'],

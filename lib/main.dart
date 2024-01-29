@@ -1,15 +1,20 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:movies/movie_list/view/movie_list_page.dart';
 import 'package:movies/observer.dart';
 import 'package:movies/style/theme.dart';
 
 
-void main() {
+void main() async {
+  await initializeDateFormatting('uk_UA');
+
+
   Bloc.observer = MovieObserver();
   runApp(const App());
 }
+
 
 class App extends StatelessWidget {
   const App({super.key});
